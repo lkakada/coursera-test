@@ -10,42 +10,43 @@
     ToBuyShoppingController.$inject = ['ShoppingListCheckOffService'];
     function ToBuyShoppingController (ShoppingListCheckOffService) {
       var toBuy = this;
-          toBuy.items = ShoppingListCheckOffService.itemTobuy;
-          toBuy.addItems = function(){
-            console.log("hello")
-            toBuy.itemsbought = ShoppingListCheckOffService.getItemBought();
-            console.log(toBuy.itemsbought);
+          toBuy.items = ShoppingListCheckOffService.getBuyItems();
+          toBuy.removeItem = function(itemIndex){
+            ShoppingListCheckOffService.removeItem(itemIndex);
           };
       }
 
     //controller for item already bought
     AlreadyBoughtShoppingController.$inject = ['ShoppingListCheckOffService'];
     function AlreadyBoughtShoppingController(ShoppingListCheckOffService){
-
+      var bought = this;
+      bought.items = ShoppingListCheckOffService.getBoughtItems();
     }
 
-    //service for sharing data
     function ShoppingListCheckOffService(){
       var service = this;
-          service.itemTobuy = [
+      //List of shopping items
+          var items = [
               {name: "cookies", quantity: 10},
               {name: "coke", quantity: 3},
               {name: "pizza", quantity: 4},
               {name: "candy", quantity: 5},
               {name: "chip", quantity: 8}
           ];
-      var itemsBought = [];
+      var boughtItems = [];
 
-      service.addItems = function(index){
-        //var itemBought
-        var itemBought = []
-        itemBought.push(itemTobuy[index]);
-        itemsBought.push(itemBought);
-        //itemTobuy.splice(index, 1)
+      service.removeItem = function(itemIndex){
+        var item = items[itemIndex];
+        items.splice(itemIndex, 1);
+        boughtItems.push(item);
       };
 
-      service.getItemBought = function(){
-        return itemsBought;
-      }
+      service.getBuyItems = function(){
+        return items;
+      };
+
+      service.getBoughtItems = function(){
+        return boughtItems;
+      };
     }
 })();
