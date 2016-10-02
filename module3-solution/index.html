@@ -7,22 +7,37 @@
     <link rel="stylesheet" href="styles/styles.css">
   </head>
 <body>
-   <div class="container" ng-controller="NarrowItDownController as listItem">
+   <div class="container" ng-controller="NarrowItDownController as itemCtrl">
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
     <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control" ng-model="listItem.searchTerm">
+      <input type="text" placeholder="search term" class="form-control" ng-model="itemCtrl.searchTerm">
     </div>
     <div class="form-group narrow-button">
-      <button class="btn btn-primary" ng-click="listItem.arrowIt(listItem.searchTerm)">Narrow It Down For Me!</button>
+      <button class="btn btn-primary" ng-click="itemCtrl.arrowIt(itemCtrl.searchTerm)">Narrow It Down For Me!</button>
+    </div>
+
+    <!-- <ul class="list-group">
+        <li ng-if="itemCtrl.found.length == 0" class="list-group-item list-group-item-danger text-center"><strong> Nothing found! </strong></li>
+        <li ng-if="itemCtrl.found.length >= 1" class="list-group-item active"><span class="badge">{{itemCtrl.found.length}}</span><strong> Items containing: {{itemCtrl.searchTerm}}</strong></li>
+        <li ng-repeat="item in itemCtrl.found" class="list-group-item">
+            <div class="row">
+                <div class="col-sm-10">
+                    <strong>{{item.name}}</strong> <span class="badge" style="background-color:#5cb85c;">{{item.short_name}}</span>
+                    <p style="font-style: italic;">{{item.description}}</p>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <button ng-click="itemCtrl.removeItem({index: $index});" class="btn btn-sm btn-danger" style="margin-top:10px;"><span class="glyphicon glyphicon-remove"></span> Don't want this one!</button>
+                </div>
+            </div>
+        </li>
+    </ul> -->
+    <div class="row">
+        <found-items items="itemCtrl.found" on-remove="itemCtrl.removeItem(index)" search="itemCtrl.filter"></found-items>
     </div>
 
     <!-- Bonus loader (see Bonus section of the assignment) -->
-    <items-loader-indicator></items-loader-indicator>
-
-    <!-- found-items should be implemented as a component -->
-     <found-items items="listItem.found" title="{{listItem.title}}" on-remove="listItem.removeItem(index)" search="listItem.filter"></found-items>
-    <!-- <found-items found-items="...." on-remove="...."></found-items> -->
+    <!-- <items-loader-indicator></items-loader-indicator> -->
   </div>
     <script type="text/javascript" src="scripts/angular.min.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
