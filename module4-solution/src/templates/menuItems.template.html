@@ -1,0 +1,16 @@
+<div class="col-md-9">
+  <ul class="list-group">
+    <li ng-repeat="item in $ctrl.items" class="list-group-item">
+      <div class="row">
+        <div class="col-sm-10">
+          <h4><strong>{{item.name}}</strong></h4>
+          <span class="badge pull-right" style="background-color:#5cb85c;" ng-if="item.price_small!==null">S : {{item.price_small | currency}}</span>
+          <span class="badge pull-right" style="background-color:#5cb85c;" ng-if="item.price_large!==null">L : {{item.price_large | currency}}</span>
+          <p>
+            <strong>Description:</strong> {{item.description}}
+          </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
